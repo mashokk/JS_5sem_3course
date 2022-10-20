@@ -1,0 +1,165 @@
+<html>
+<head></head>
+<script>
+//#1
+//Пользователь вводит данные. Если он ввел число, то преобразуйте его в 16-ричную систему счисления
+//(вывод в верхнем регистре). Если число дробное – округлите его до наибольшего, наименьшего и
+//ближайшего целого. Если пользователь ввел текст, то преобразуйте его к верхнему и нижнему регистру.
+document.write('Задание 1<br>');
+let data = prompt("Введите данные:", "");
+document.write("Введенные данные - " + data + "<br>");
+if (!isNaN(parseFloat(data))) {
+    if ((typeof parseFloat(data)) == "number") { //возвращает 10-тичное число
+        if (Number.isInteger(parseFloat(data))) { //явл. ли целым
+            let number = Number(data).toString(16);
+            document.write(number);
+        } else {
+            document.write(Math.ceil(parseFloat(data)) + ", " + Math.floor(parseFloat(data)) + ", " + Math.round(parseFloat(data)));
+        }
+    }
+} else if ((typeof data) == 'string') {
+    document.write(data.toUpperCase() + ", " + data.toLowerCase())
+}
+
+
+//#2
+//Выпускник сдает ЦТ по русскому языку. Ему дано словарное слово, необходимо ввести в текстовое поле
+//правильный вариант ответа. Проверьте его ответ и сообщите в каком символе он допустил ошибку, если она есть
+document.write('<br>Задание 2<br>');
+    let word = alert("Б_г_мот");
+function look() {
+    let trueword1 = "Бегемот";
+    let trueword = trueword1.toLowerCase(); //строчными
+    let true_word= String(trueword);
+    let yourword = prompt("Введите слово правильно:", "");
+    let your_word1= String(yourword);
+    let your_word = your_word1.toLowerCase();
+    let where_mistake = [];
+    let j = 0;
+    if (your_word.length == true_word.length) {
+        for (let i = 0; i < your_word.length; i++) {
+            if (your_word[i] != true_word[i]) {
+                where_mistake[j] = i + 1;
+                j++; 
+            }
+        }
+        if (j % 1 == 0 && where_mistake != 0) {
+            alert("Ошибка в символе с номером " + where_mistake);
+            look();
+        } else {
+            alert("Ошибок нет.");
+            document.write("Слово " + trueword1 + " было написано правильно.")
+            return 0;
+        }
+    } else {
+        alert("Длина слов не совпадает. Повторите попытку ввода.");
+        look();
+    }
+}
+look();
+
+
+//#3
+//Разработайте геометрический калькулятор для расчета параметров треугольника:
+//площадь, периметр, высота, cos, sin, tg, ctg. Пользователь указывает длину катетов.
+document.write('<br>Задание 3<br>');
+
+let сat1 =+ prompt("Введите первый катет:", "");
+let cat2 =+ prompt("Введите второй катет:", "");
+
+let gipotenuza = Math.sqrt(сat1**2+cat2**2);
+
+let S = (сat1*cat2)/2;            //площадь
+let P = сat1 + cat2 + gipotenuza; //периметр
+let h = (сat1 * cat2)/gipotenuza; //высота
+let cos = сat1/cat2;
+let sin = cat2/gipotenuza;
+let tg = cat2/сat1;
+let ctg = сat1/cat2;
+
+let choose =+ prompt("Введите искомое значение:\n1 - площадь\n2 - периметр\n3 - высота\n4 - cos\n5 - sin\n6 - tg\n7 - ctg");
+switch(choose)
+{
+    case 1: document.write("Площадь равна " + S);
+        break;
+    case 2: document.write("Периметр равен " + P);
+        break;
+    case 3: document.write("Высота равна " + h);
+        break;
+    case 4: document.write("Косинус равен " + cos);
+        break;
+    case 5: document.write("Синус равен " + sin);
+        break;
+    case 6: document.write("Тангенс равен " + tg);
+        break;
+    case 7: document.write("Котангенс равен " + ctg);
+        break;
+    default: alert('Ошибка.');
+}
+
+
+//#4
+//Объедините два массива с вложенностью используя reduce().
+document.write('<br>Задание 4<br>');
+const arr = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+const result = arr.reduce((total, amount) => { // метод reduce используется для вычисления какого-нибудь единого значения на основе всего массива
+    return total.concat(amount);             // метод concat возвращает новый массив, состоящий из массива, на котором он был вызван, соединённого с другими массивами и/или значениями, переданными в качестве аргументов.
+}, []);
+document.write(result);
+
+
+//#5
+//Найдите сумму элементов массива, если вложенность массива неизвестна
+document.write('<br>Задание 5<br>');
+let sum = 0;
+for (i = 0; i < result.length; i++) {
+    sum += result[i];
+} document.write("Сумма элементов массива - " + sum);
+
+
+//#6
+// Напишите функцию, которая на вход принимает массив из студентов, где студент — это
+// объект с полями «имя», «возраст» и «номер группы» {name: string, age: number, groupId: number},
+// а на выходе возвращает объект, где ключ — это номер группы, а значение — массив из студентов старше 17 лет
+document.write('<br>Задание 6: <br>');
+function student(name, age, groupId) {
+   this.name = name;
+   this.age = age;
+   this.groupId = groupId;
+}
+function group(old) {
+    let g = {      //объект 
+     "1":1,        //ключ — номер группы
+     "students":[] //значение — массив из студентов старше 17 лет
+    };
+    let o = 0;
+    for (let i = 0; i < old.length; i++){
+        if ((Object.keys(g)[0] == old[i].groupId) && (old[i].age > 17)){          
+                g.students[o] = old[i].name;
+                o++;           
+        }
+    } return g;
+}
+let old = [new student("Иванов", 20, 1),
+new student("Петров", 16, 1),
+new student("Сидоров", 19, 1),
+new student("Кузнецов", 21, 1),
+new student("Смирнов", 17, 1)];
+let res = group(old);
+document.write(res.students);
+
+//#7
+//Вам дана строка, состоящая из символов ASCII. Переведите символы в код - число total1,
+//замените все цифры 7 на 1 - число total2. И вычтите из total1 число total2
+document.write('<br>Задание 7<br>');
+let str = prompt("Введите строку", "");
+document.write("Исходная строка - " + str + "<br>");
+let total1 = "";
+for (let i = 0; i < str.length; i++) {
+     total1 = total1 + String(str.charCodeAt(i));
+}
+let total2 = total1.replace("7","1");
+let total12 = total1 - total2;
+document.write("total1 - " + total1 + "<br>total2 (замена цифр 7 на 1) - " + total2 + "<br>total1 - total2 = " + total12);
+</script>
+</html>
