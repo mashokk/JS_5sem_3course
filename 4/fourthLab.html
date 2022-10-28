@@ -1,0 +1,173 @@
+<html>
+<head></head>
+<script>
+    //1.	Вы – модератор на форуме о собаках. Существуют определённые правила модерации комментариев пользователей:
+    // длина комментария не более n символов; запрещается использовать слова с корнем «кот» – он заменяется на символ *;
+    // слова с корнем «собак» должны быть с большой буквы; перед словом «пес» обязательно должно быть слово «многоуважаемый».
+    // Выполните модерацию комментария пользователя и опубликуйте на форуме, правильный комментарий
+    document.write('Задание 1<br>');
+    let str = "Не люблю котов, но люблю пересобак, поэтому у меня есть пес дома. собаки мои пересобаки";
+    document.write(str);
+    document.write("<br>");
+
+    if (str.length < 100) {
+        let str2 = str.replaceAll("кот","*");
+
+        let arr = str2.split(" "); //делим по пробелу
+        let arr2 = arr.map( function(v) {
+            if (v.includes("собак") == true) {
+                return v.charAt(0).toUpperCase() + v.slice(1);
+            } else { return v; }
+        });
+
+        let arr3 = arr2.map( function(g) {
+            if (g.includes("пес") == true) {
+                return "многоуважаемый " + g;
+            } else {  return g; }
+        });
+
+        let str3 = arr3.join(" "); // соединияем все обратно в строку
+        document.write(str3 + "<br>");
+
+        // arr.forEach(function(word) {
+        //     if (word.includes("собак") == true) {
+        //         let splitted = word.split(""); // делим слово на отдельные буквы
+        //         let first = splitted[0].toUpperCase(); // делаем первую букву в массиве заглавной 
+        //         // копируем массив что бы 
+        //         // не модицицировать splitted напрямую
+        //         // если вдрг он нам понадобиться далее
+        //         let rest = [...splitted];
+        //         rest.splice(0, 1); // удаляем первую букву из массива
+        //         let word_toUC = [first, ...rest].join(""); // соединияем все обратно в строку
+                
+        // 	    document.write(word_toUC + ' в этом слове есть собак<br>');
+        //         return word_toUC;
+        //     }
+        // });
+    }
+    else {
+        document.write('Длина строки превышает 100 символов, значит модераторам лень проверять её.<br>');
+    }
+
+    //2.	Пользователь вводит свое имя, которое может состоять из одного или нескольких слов. Выведите  имя следующим
+    // образом: если оно состоит из одного слова, то слева и справа добавляются по 3 символа *; если из нескольких слов – то
+    // каждое слово на отдельной строке и все слова выравнены по правому краю.
+    document.write('Задание 2<br>');
+    function name_f(str){
+        let array = str.split(" "); //разбивает объект String на массив строк путём разделения строки указанной подстрокой
+        if (array.length == 1) { str = "***" + str + "***"; }
+        else {
+            str = array.join("<br>");
+            str = "<p align=\"right\">" + str + "</p>";
+        }
+        return str;
+    }
+    let name = prompt("Введите имя", "");
+    document.write(name_f(name));
+    document.write("<br>");
+
+    //3.	По номеру дня недели определить какой это день: 1 – пн, 2 – вт, … , 7 – вс.
+    // Используйте объект. Выведите все нечетные дни (номер и название) и их количество.
+    document.write('Задание 3<br>');
+    function Days(){
+        let date = new Date();
+        let day = date.getDay();
+        return day;
+    }
+    function WhoAreYou(day){
+        let str = "";
+        let col = [];
+        let arrayDay = ['пн','вт','ср','чт','пт','сб','вс'];
+        for(let i = 0;i <= 7;i += 2){
+            str = str + " " +(i + 1)+ " - " + " " + arrayDay[i];
+            col.push(i);
+        }
+        return document.write(arrayDay[day-1] + "<br>" + str + "<br>" + col.length);
+    }
+    WhoAreYou(Days());
+
+    //4.	На сайте все элементы оформлены одинаково. У всех кнопок одинаковые ширина, высота, цвет фона и текста.
+    // Все ссылки имеют одинаковые размер шрифта, гарнитуру и цвет текста. Для привлечения внимания элементы выделяют
+    // желтым цветом (цвет фона). Создайте объекты для кнопок, для ссылок и акцентных элементов (3 объекта!!).
+    // Используя эти объекты, создайте акцентные кнопки и ссылки
+    document.write('Задание 4<br>');
+    let button = {
+        "width": "100px",
+        "height": "100px",
+        "background-color": "orange",
+        "color": "red",
+    }
+    let link = {
+        "font-size": "30px",
+        "font-family": "Comic Sans",
+        "color": "green",
+    }
+    let akcent = {
+        "background-color": "yellow",
+    }
+    let buttons = document.createElement("button");
+    buttons.innerHTML="Кнопка";
+    Object.assign(buttons.style,button);
+    document.body.appendChild(buttons);
+    
+    let links=document.createElement("a");
+    links.innerHTML="Ссылка";
+    Object.assign(links.style,link);
+    document.body.appendChild(links);
+    
+    document.write("<br>");
+    
+    let buttons2=document.createElement("button");
+    buttons2.innerHTML="Кнопка 2";
+    Object.assign(buttons2.style,button, akcent);
+    document.body.appendChild(buttons2);
+    
+    let links2=document.createElement("a");
+    links2.innerHTML="Ссылка 2";
+    Object.assign(links2.style,link, akcent);
+    document.body.appendChild(links2);
+
+    //5.	Создайте функцию, которая принимает несколько объектов в качестве параметров и возвращает новый объект со всеми свойствами из входных объектов.
+    // Примеры:
+    //  extend( {a: 1, b: 2}, {c: 3} ) 
+    //  // result === {a: 1, b: 2, c: 3}
+
+    //  extend( {a: 1, b: 2}, {c: 3}, {d: 4} ) 
+    //  // result === {a: 1, b: 2, c: 3, d: 4}
+
+    //  extend( {a: 1, b: 2}, {a: 3, c: 3} ) 
+    //  // result === {a: 1, b: 2, c: 3}
+    document.write('<br>Задание 5<br>');
+    function task(...params) {
+        return params.reduce((acc,item) => {
+          Object.entries(item).forEach(([property,value]) => { //метод возвращает массив собственных перечисляемых свойств
+            const prev = acc[property];
+            acc[property] = prev ? prev : value;
+          });
+          return acc;
+        }, {});
+      };
+      function zad5(){
+        document.write(task({a: 1, b: 2}, {c: 3} ));
+        document.write(task({a: 1, b: 2}, {c: 3}, {d: 4}));
+        document.write(task({a: 1, b: 2}, {a: 3, c: 3}));
+        document.write(""); 
+    };
+    zad5(); //???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+
+    // 6.	Создайте башню-пирамиду, состоящую из символов "*". В качестве входного параметра приходит число этажей башни.
+    // Пример:
+    // Башня с 3 этажами
+    //  [
+    //    "  *  ",
+    //    " *** ", 
+    //    "*****"
+    //  ]
+    document.write('Задание 6<br>');
+    let numm = +prompt('Number');
+    for (let i = 1; i < numm+1; i++) {  
+        document.write("<p align=\"center\">"+("*".repeat(i))+"</p>") // возвращает новую строку, содержащую указанное количество соединённых вместе копий
+    }
+
+</script>
+</html>
