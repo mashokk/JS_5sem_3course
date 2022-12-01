@@ -1,0 +1,146 @@
+<html>
+<head></head>
+<script> //Функции и замыкания
+    // 1.	Реализуйте функцию без параметров. Вызовите ее с произвольным количеством аргументов.
+    // Если вы передали не более 3-х аргументов, то функция должна возвращать строку, состоящую из 
+    // значений всех аргументов. Если вы передали более 3-х, но не более 5-ти аргументов – то типы 
+    // аргументов. Если более 5-ти и не более 7-ми – то   количество аргументов. Если более 7-ми – 
+    // то сообщение о том, что количество аргументов очень большое.
+
+    document.write('<h2>Задание 1<br></h2>');
+    let word = "Hi";
+    function noParam() {
+        word = "Привет";
+    }
+    document.write(word + "<br>");
+    noParam();
+    document.write(word + "<br>");
+
+
+    // 2.	КАРТИНКИ Что будет выведено в следующих примерах? Почему?
+    document.write('<h2><br>Задание 2<br></h2>');
+    // //window.a;
+    // //alert(a); //a is not defined
+
+    // //alert(b);
+    // //window.b = 2; //b is not defined
+
+    // //alert(c);
+    // //window.c = 2;
+    // //let c; //Cannot access 'c' before initialization
+
+    // alert(d); //undefined
+    // window.d = 2;
+    // var d;
+
+    // //alert(e);
+    // //let e = 2; //Cannot access 'e' before initialization
+
+    // let f = 2; //2
+    // window.f = 3;
+    // alert(f);
+
+    // var g = 2;
+    // window.g = 3; //3
+    // alert(g);
+
+    // 3.	Создайте функцию вычисления суммы s двух чисел a и b.
+    // a передается в качестве аргумента функции, 
+    // b на 1 больше a – рассчитывается в функции. 
+    // Функция выводит сумму s. 
+    // Чему будет равен LexicalEnvironment на каждом шаге выполнения функции (укажите в комментариях)? ////////////////////////////////////////////////////////////////////
+    document.write('<h2><br>Задание 3<br></h2>');
+    function summ(a, b = a++) {
+        document.write(a + b);
+    }
+    summ(1);
+
+
+    // 4.	КАРТИНКИ Что будет выведено в окне? Почему не undefined?
+    document.write('<h2><br>Задание 4<br></h2>');
+    let s = 5;
+    function sum() {
+        alert(s);
+    }
+    sum(); //потому что s задана в глобальном лексическом окружении и равна 5
+
+
+    // 5.	КАРТИНКИ Что выведет alert в примерах? Поясните почему так? На что ссылается
+    // [[Environment]] функций? Что будет содержать LexicalEnvironment при запуске функций?
+    // Что хранится в counter? Когда будет вызвана функция (*)?
+    document.write('<h2><br>Задание 5<br></h2>');
+    //#1
+    function makeCounter() {
+        let currentCount = 1;
+        return function() { // *
+            return currentCount++;
+        };
+    }
+    let counter = makeCounter();
+    alert(counter()); //1
+    alert(counter()); //2
+    alert(counter()); //3
+    let counter2 = makeCounter();
+    alert(counter2()); //1
+    //Функция получает текущее значение внешних переменных, т.е. их последнее значение.
+    //Старые значения переменных нигде не сохраняются. Когда функция хочет получить
+    //доступ к переменной, она берёт её текущее значение из своего или внешнего
+    //лексического окружения.
+
+    //если значение count живет во внешней переменной, то она не доступна 
+    //для внешнего кода. Изменить её могут только вложенные функции
+    
+ 
+    //#2
+    let currentCountt = 1;
+    function makeCounterr() {
+        return function() {
+            return currentCountt++;
+        };
+    }
+    let counterr = makeCounterr();
+    let counterr2 = makeCounterr();
+    alert(counterr()); //1
+    alert(counterr()); //2
+
+    alert(counterr2()); //3
+    alert(counterr2()); //4
+    
+
+
+    // 6.	КАРТИНКИ Функция ssum принимает параметры x и y и выводит их значения. Дополните функцию
+    // чтобы была возможность рассчитать сумму чисел вне функции и записать результат в свойство функции k.
+    document.write('<h2><br>Задание 6<br></h2>');
+    function ssum(x,y) {
+        function k() {
+            return x + y;
+        }
+        alert(`x = ${x}, y = ${y}`);
+    }
+    ssum(2,3);
+    //ssum.k = x + y
+    ssum.k; //
+    alert(ssum.k); /////////////////////////////////////////////////////////////////
+
+
+    // 7.	КАРТИНКИ Какой будет результат выполнения кода? ------------ underfind
+    // Изменится ли внешняя переменная value? 
+    // Какими будут ответы, если из строки let value = false убрать let? -----------true
+    document.write('<h2><br>Задание 7<br></h2>');
+    let value = 0;
+    function f() {
+        if (1) {
+            value = true;
+        } else {
+            value = false; //убрали let
+        }
+        alert(value);
+    }
+    f();
+
+    // 8.	Выведите имена всех функций из предыдущих задач.
+    document.write('<h2><br>Задание 8<br></h2>');
+
+
+</script>
+</html>
