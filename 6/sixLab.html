@@ -8,52 +8,70 @@
     // то сообщение о том, что количество аргументов очень большое.
 
     document.write('<h2>Задание 1<br></h2>');
-    let word = "Hi";
-    function noParam() {
-        word = "Привет";
+    function sayHi() {
+        for (var i = 0; i < arguments.length; i++) {
+            if (arguments.length <= 3) {
+                document.write(arguments[i]);
+            } else if (arguments.length > 3 && arguments.length <= 5) {
+                document.write(typeof arguments[i]);
+                return 0;
+            } else if (arguments.length > 5 && arguments.length <= 7) {
+                document.write(arguments.length);
+                return 0;
+            } else {
+                document.write("Количество аргументов очень большое");
+                return 0;
+            }
+        }
     }
-    document.write(word + "<br>");
-    noParam();
-    document.write(word + "<br>");
+    sayHi("Даша", "Маша");                                                                                  document.write('<br>');
+    sayHi("Даша", "Маша", "Саша", "Петя", "Катя");                                                          document.write('<br>');
+    sayHi("Даша", "Маша", "Саша", "Петя", "Катя", "Вася", "Оля");                                           document.write('<br>');
+    sayHi("Даша", "Маша", "Саша", "Петя", "Катя", "Вася", "Оля", "Света", "Женя", "Миша", "Жора", "Лена");  document.write('<br>');
+    
 
 
     // 2.	КАРТИНКИ Что будет выведено в следующих примерах? Почему?
     document.write('<h2><br>Задание 2<br></h2>');
-    // //window.a;
-    // //alert(a); //a is not defined
+    //window.a;
+    //alert(a); //a is not defined
 
-    // //alert(b);
-    // //window.b = 2; //b is not defined
+    //alert(b);
+    //window.b = 2; //b is not defined
 
-    // //alert(c);
-    // //window.c = 2;
-    // //let c; //Cannot access 'c' before initialization
+    //alert(c);
+    //window.c = 2;
+    //let c; //Cannot access 'c' before initialization
 
-    // alert(d); //undefined
-    // window.d = 2;
-    // var d;
+    alert(d); //undefined
+    window.d = 2;
+    var d;
+    //В браузере глобальные функции и переменные, объявленные с помощью var (не let/const), становятся свойствами глобального объекта
 
-    // //alert(e);
-    // //let e = 2; //Cannot access 'e' before initialization
+    //alert(e);
+    //let e = 2; //Cannot access 'e' before initialization
 
-    // let f = 2; //2
-    // window.f = 3;
-    // alert(f);
+    let ff = 2; //2
+    window.ff = 3;
+    alert(ff);
 
-    // var g = 2;
-    // window.g = 3; //3
-    // alert(g);
+    var g = 2;
+    window.g = 3; //3
+    alert(g);
+
+
 
     // 3.	Создайте функцию вычисления суммы s двух чисел a и b.
     // a передается в качестве аргумента функции, 
     // b на 1 больше a – рассчитывается в функции. 
-    // Функция выводит сумму s. 
-    // Чему будет равен LexicalEnvironment на каждом шаге выполнения функции (укажите в комментариях)? ////////////////////////////////////////////////////////////////////
+    // Функция выводит сумму s.
     document.write('<h2><br>Задание 3<br></h2>');
     function summ(a, b = a++) {
         document.write(a + b);
     }
     summ(1);
+
+
 
 
     // 4.	КАРТИНКИ Что будет выведено в окне? Почему не undefined?
@@ -62,11 +80,11 @@
     function sum() {
         alert(s);
     }
-    sum(); //потому что s задана в глобальном лексическом окружении и равна 5
+    sum();
 
 
-    // 5.	КАРТИНКИ Что выведет alert в примерах? Поясните почему так? На что ссылается
-    // [[Environment]] функций? Что будет содержать LexicalEnvironment при запуске функций?
+
+    // 5.	КАРТИНКИ Что выведет alert в примерах?
     // Что хранится в counter? Когда будет вызвана функция (*)?
     document.write('<h2><br>Задание 5<br></h2>');
     //#1
@@ -82,14 +100,6 @@
     alert(counter()); //3
     let counter2 = makeCounter();
     alert(counter2()); //1
-    //Функция получает текущее значение внешних переменных, т.е. их последнее значение.
-    //Старые значения переменных нигде не сохраняются. Когда функция хочет получить
-    //доступ к переменной, она берёт её текущее значение из своего или внешнего
-    //лексического окружения.
-
-    //если значение count живет во внешней переменной, то она не доступна 
-    //для внешнего кода. Изменить её могут только вложенные функции
-    
  
     //#2
     let currentCountt = 1;
@@ -112,15 +122,15 @@
     // чтобы была возможность рассчитать сумму чисел вне функции и записать результат в свойство функции k.
     document.write('<h2><br>Задание 6<br></h2>');
     function ssum(x,y) {
-        function k() {
-            return x + y;
-        }
+        ssum.x = x;
+        ssum.y = y;
         alert(`x = ${x}, y = ${y}`);
     }
-    ssum(2,3);
-    //ssum.k = x + y
-    ssum.k; //
-    alert(ssum.k); /////////////////////////////////////////////////////////////////
+    let x = 2; let y = 3;
+    ssum(x,y);
+    ssum.k = x + y;
+    alert(ssum.k);
+    
 
 
     // 7.	КАРТИНКИ Какой будет результат выполнения кода? ------------ underfind
@@ -138,8 +148,16 @@
     }
     f();
 
+
+    
     // 8.	Выведите имена всех функций из предыдущих задач.
     document.write('<h2><br>Задание 8<br></h2>');
+    console.log(sayHi.name);
+    console.log(summ.name);
+    console.log(sum.name);
+    console.log(makeCounter.name);
+    console.log(ssum.name);
+    console.log(f.name);
 
 
 </script>
