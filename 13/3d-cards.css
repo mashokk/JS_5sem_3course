@@ -1,0 +1,39 @@
+body {
+	margin: 0;
+}
+* {
+	box-sizing: border-box;
+}
+
+.Container {
+	display: flex;
+	height: 100vh;
+	background-color: rgb(243, 219, 193);
+	background-size: 100% auto;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.Card {
+	perspective: 1000px;
+	transform-style: preserve-3d;
+}
+.Card_Item {
+	background-color: White;
+	width: 300px;
+	height: 300px;
+	transition: transform 0.4s;
+}
+
+#Card_1 {
+	background-image: url("3d-cards/bunny.jpg");
+	background-size: 100% auto;
+}
+#Card_2 {
+	background-image: url("3d-cards/kot.png");
+	background-size: 100% auto;
+}
+#Card_3 {
+	background-image: url("3d-cards/popug.jpg");
+	background-size: 100% auto;
+}

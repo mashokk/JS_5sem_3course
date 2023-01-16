@@ -1,0 +1,38 @@
+body {
+    background-size: 100% auto;
+}
+
+
+/* Мишень */
+#Board {
+    position: absolute;
+    top: 2%;
+    left: 40%;
+}
+#Dart_Board {
+    width: 270px;  
+}
+
+
+/* Граница */
+#Line {
+    position: absolute;
+    background-color: black;
+    height: 3px;
+    width: 1400px;
+    top: 50%;
+}
+
+
+/* Дротик */
+#Drotik {
+    position: absolute;
+    z-index: 1000;
+    top: 100px;
+    left: 50%; 
+    transition: all .3s ease-in-out;
+}
+.Drotik {
+    width: 50px;
+    align-self: center;
+}

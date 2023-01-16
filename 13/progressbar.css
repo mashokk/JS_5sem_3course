@@ -1,0 +1,23 @@
+html, body {
+	background-color: rgb(120, 197, 222);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	height: 100%;
+}
+
+.Prograss_Ring_Circle {
+	transform-origin: center;
+	transform: rotate(-90deg);
+	transition: stroke-dashoffset 0.75s;
+}
+
+.Percent {
+	margin-top: 20px;
+	padding: 5px 5px 5px 5px;
+	text-align: center;
+	font-weight: bold;
+	border: 2px solid White;
+}

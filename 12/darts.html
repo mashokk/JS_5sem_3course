@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>Darts</title>
+    <link rel="stylesheet" type="text/css" href="css.css">
+    <script type="text/javascript" src="js.js"></script>
+</head>
+<body>
+    <div id="Board"><img src="img/darts.jpg" id="Dart_Board"></div>
+    <div id="Line"></div>
+    <div id="Drotik"><img src="img/dr.png" class="Drotik"></div>
+</body>
+
+<script type="text/javascript">
+    
+    /* дротик */
+
+    let darts = document.getElementById("Drotik");
+
+    darts.onragstart = function() {
+        return false;
+    }
+
+    darts.onmousedown = function(event) {
+
+        document.body.append(darts);
+
+        let shiftX = event.clientX - darts.getBoundingClientRect().left;
+        let shiftY = event.clientY - darts.getBoundingClientRect().top;
+
+        Move(event.pageX, event.pageY);
+
+        function Move(pageX, pageY) {
+            darts.style.left = pageX - darts.offsetWidth / 2 + 'px';
+            darts.style.top = pageY - darts.offsetHeight / 2 + 'px';
+        }
+    
+        function On_Mouse_Move(event) {
+            let line = document.getElementById("Line");
+            let coordinates = line.getBoundingClientRect();
+            if (coordinates.bottom < event.pageY) {
+                Move(event.pageX, event.pageY);
+            }    
+        }
+
+        document.addEventListener('mousemove', On_Mouse_Move);
+
+        darts.onmouseup = function() {
+            let x = darts.getBoundingClientRect().left;
+            let y = darts.getBoundingClientRect().top;
+
+            let newX = x - shiftX;
+            let newY = y - shiftY;
+      
+            animate({
+                duration: 1000,
+                timing: function(timeFraction) {
+                    return timeFraction;
+                },
+                draw: function(progress) {
+                    darts.style.top = newY - 180 + 'px';
+                    darts.style.left = newX + 30 + 'px';
+                }
+            });
+        };
+    }
+</script>
+</html>
