@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Лабораторная работа №10</title>
+	<script type="text/javascript" src="js.js"></script>
+    <link rel="stylesheet" type="text/css" href="css.css">
+</head>
+<body>
+ <!-- //Клиентский JavaScript
+//Модули. Окружение: DOM, BOM. Дерево DOM. Навигация по DOM-элементам. Методы поиска DOM-элементов.
+//Свойства узлов: тип, тег и содержимое. Атрибуты и DOM-свойства. Добавление и удаление узлов.
+//Стили. Размеры и прокрутка элементов. Размеры и прокрутка страницы. Координаты. 
+
+
+//Используя метод работы с DOM, создайте классы Product и Button, которые описывают представление
+//элементов на странице. Используя эти классы, добавьте на страницу нужные элементы.
+//Разработайте класс Product, который позволяет добавлять (удалять, изменять) товар в каталог интернет-магазина.
+
+//Описание каждого продукта на странице содержит изображение товара, название, стоимость и кнопку «В корзину».
+
+// Класс Product должен позволять:
+// - добавлять товар на страницу;
+// - удалять конкретный товар (например, по коду);
+// - устанавливать изображение товара (ссылку на изображение можно передавать в качестве параметры метода);
+// - устанавливать название товара;
+// - устанавливать стоимость товара;
+
+// Для создания кнопок разработайте класс Button, который позволяет:
+// - создать, удалить кнопку;
+// - устанавливать размеры кнопки;
+// - устанавливать фон кнопки;
+// - устанавливать текст кнопки.
+
+// После того как все товары добавлены на страницу, найдите все нечетные товары и задайте им серый фон.
+
+// Структура разработанных классов/модулей, должна быть гибкой: легко расширяться, изменяться по мере необходимости.  -->
+
+<div id="Action_Buttons">
+    <button id="Add_To_Button" class="Buttons" onclick="Add_To()">Добавить</button>
+    <button id="Delete_Button" class="Buttons" onclick="Delete()">Удалить</button>
+    <button id="Make_Gray_Button" class="Buttons" onclick="Gray()">Задать серый фон</button>
+    <button id="Create_Button" class="Buttons" onclick="Create_Button()">Создать кнопку</button>
+    <button id="Change" class="Buttons" onclick="Change()">Изменить кнопку</button>
+</div>
+<div id="Basket">
+    <button id="Basket_Button" class="Buttons" onclick="Basket()">Корзина</button>	
+</div>	
+<div id="Products_Div">
+    <div id="New_Products">
+        <img id="Image" src="kot.png">
+        <h3 id="Name">Котенок</h3>
+        <p id="Cost">150 руб</p>
+        <button id="By_Basket" class="Buttons" onclick="By_Basket()">В корзину</button>
+        <button id="The_Сhange" class="Buttons" onclick="The_Сhange()">Изменить</button>
+    </div>
+    <div id="New_Products">
+        <img id="Image" src="dog.jpg">
+        <h3 id="Name">Щенок</h3>
+        <p id="Cost">200 руб</p>
+        <button id="By_Basket" class="Buttons" onclick="By_Basket()">В корзину</button>
+        <button id="The_Сhange" class="Buttons" onclick="The_Сhange()">Изменить</button>
+    </div>
+    <div id="New_Products">
+        <img id="Image" src="homa.jpg">
+        <h3 id="Name">Хомяк</h3>
+        <p id="Cost">10 руб</p>
+        <button id="By_Basket" class="Buttons" onclick="By_Basket()">В корзину</button>
+        <button id="The_Сhange" class="Buttons" onclick="The_Сhange()">Изменить</button>
+    </div>
+    <div id="New_Products">
+        <img id="Image" src="popug.jpg">
+        <h3 id="Name">Попугай</h3>
+        <p id="Cost">90 руб</p>
+        <button id="By_Basket" class="Buttons" onclick="By_Basket()">В корзину</button>
+        <button id="The_Сhange" class="Buttons" onclick="The_Сhange()">Изменить</button>
+    </div>
+</div>
+<div id="More_Buttons"></div>
+
+</html>

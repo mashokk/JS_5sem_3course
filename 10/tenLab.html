@@ -1,0 +1,70 @@
+<html>
+<head></head>
+<script> //ооп
+
+    // 1.Создайте класс описывающий веб-компонент. Конструктор этого класса принимает селектор. 
+    // Класс содержит методы, один из них показывает, другой – скрывает компонент.
+    //constructor - это специальный метод, служащий для создания и инициализации объектов, созданных с использованием class 
+    document.write('<h2>Задание 1<br></h2>');
+    class web_component {
+        constructor(selector)
+        {
+            this.selector = selector
+            this.element = document.createElement(selector)
+        }
+        show()
+        {
+            this.element.style.visibility = 'visible'
+            document.body.append(this.element)
+        }
+        hide() 
+        { 
+            this.element.style.visibility = 'hidden'
+            document.body.remove(this.element)
+        }
+    }
+
+
+    
+    // 2. Создайте класс описывающий блочный элемент. Класс наследуется от веб-компонента и
+    // принимает  options – объект свойств блочного элемента: селектор, размер, цвет.   
+    //Создайте два блочных элемента: первый – красного цвета размером 100х100px, второй – синего цвета размером 120х120px.
+    class div extends web_component
+    {
+        constructor(options)
+        {
+            super()
+            this.element = document.createElement("div", options)
+            Object.assign(this.element.style, options)
+        }
+    }
+    class circle extends div
+    {
+        constructor(options)
+        {
+            super()
+            this.element = document.createElement("div", options)
+            Object.assign(this.element.style, options)
+            this.element.style.borderRadius = "50%";
+        }
+    }
+    let red_square = new div( { width : "100px" , height: "100px", "background-color" : "#ff0000"} ) //первый блочный элемент
+    let blue_square = new div( { width : "120px" , height: "120px", "background-color" : "#0000ff"} ) //второй блочный элемент
+    red_square.show()
+    blue_square.show()
+
+
+
+    // 3. Создайте класс, наследующий от блочного элемента, который создает круг. Создайте зеленый круг с диаметром 90px.
+    let red_circle = new circle({ "background-color" : "#00FF00", width : "90px", height: "90px"})
+    red_circle.show()
+
+
+    
+
+
+
+
+
+</script>
+</html>

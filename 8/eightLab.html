@@ -1,0 +1,124 @@
+<html>
+<head></head>
+<script> //Методы объектов, this. Итерируемые объекты. Создание объектов через "new". Флаги и дескрипторы свойств. Геттеры и сеттеры.
+
+
+// 1.	Хранилище всего имеющегося товара в интернет-магазине представляет собой объект products. 
+// Весь товар разделен на категории, одна из них «Обувь», которая в свою очередь делится на виды
+// «Ботинки», «Кроссовки», «Сандалии». О каждой паре обуви хранится следующая информация:
+// уникальный номер товара, размер обуви, цвет, цена. 
+let Products = {
+    Shoes: {
+        Boots: [{ unique_number: "32149", size: 36, color: "Синий", price: 118 },
+                { unique_number: "12771", size: 39, color: "Белый", price: 199 },
+                { unique_number: "32149", size: 38, color: "Черный ", price: 120 },
+        ],
+  
+        Sneakers: [{ unique_number: "12763", size: 40, color: "Белый", price: 211 },
+                   { unique_number: "333169", size: 37, color: "Салатовый", price: 148 },
+                   { unique_number: "131767", size: 38, color: "Бежевый", price: 187 },
+        ],
+        
+        Sandals: [{ unique_number: "141658", size: 37, color: "Рыжий", price: 114 },
+                  { unique_number: "141635", size: 39, color: "Черный", price: 136 },
+                  { unique_number: "141653", size: 41, color: "Бежевый", price: 92 },
+        ],
+    }  
+}
+
+
+
+
+// 2.	Реализуйте итератор для объекта products для доступа к каждому товару.
+document.write('<h2>Задание 2<br></h2>');
+Products[Symbol.iterator] = function* () {
+   let Shoes = Object.values(Products.Shoes);
+   for (let type in Shoes) {
+        for (let i = 0; i < Shoes[type].length; i++) {
+            yield Shoes[type][i];
+        }
+   }
+}
+for (let typeObject of Products) {
+    document.write("Артикул: " + typeObject.unique_number
+    + "<br>Размер: " + typeObject.size
+    + "<br>Цвет: " + typeObject.color
+    + "<br>Цена: " + typeObject.price + "<br><br>");
+}
+
+
+
+
+// 3.	Реализуйте фильтр обуви по цене в заданном диапазоне, по заданному размеру, по заданному цвету.
+// Выведите номера товаров, соответствующих заданному условию (фильтру).
+let findColor = prompt("Введите цвет (сортировка)", "");
+for (let type of Products) {
+    if (type.color == findColor) {
+        alert("Цвет "  + findColor + " имеет обувь с артикулом " + type.unique_number);
+    } else {
+        alert("Нет такого цвета!");
+    }
+}
+
+let findSize = +prompt("Введите размер (сортировка)", "");
+
+if ((typeof(findSize) == "number") && (findSize >= 36) && (findSize <= 41)) {
+   for (let type of Products) {
+     if (type.size == findSize) {
+       alert("Размер "  + findSize + " имеет обувь с артикулом " + type.unique_number);
+     } else {
+      alert("Размер не найден!");
+     }
+   }
+}
+else {
+   alert("Ошибка! У нас нет такого размера.");
+}
+
+let findmin = Number(prompt("Введите начальную цену диапазона", ""));
+let findmax = Number(prompt("Введите конечную цену диапазона", ""));
+
+if ((typeof(findSize) == "number") && (findmin >= 0) && (findmax >= 0) && (findmin <= findmax)) {
+   for (let type of Products) {
+     if ((type.price >= findmin) && (type.price <= findmax)) {
+       alert("Цену "  + findSize + " руб. имеет обувь с артикулом " + type.unique_number);
+     }
+   }
+}
+else {
+   alert("Данные введены не корректно!");
+}
+
+
+
+// 4.	Каждый товар (пара обуви) из предыдущей задачи представляет собой однотипные объекты.
+// Учитывая это, каким образом мы можем оптимизировать создание нового товара в хранилище?
+// Оптимизируйте объект-хранилище, при этом свойства «id», «цвет» и «размер» должны быть
+// доступны только для чтения, свойство «id» не может быть удалено. 
+
+function product(unique_number, size, color, price)
+{
+  Object.defineProperty(this, "unique number", { value: unique_number, writable: false, configurable: false})
+  Object.defineProperty(this, "size", { value: size, writable: false})
+  Object.defineProperty(this, "color", {value: color, writable: false})
+  Object.defineProperty(this, "sale", { set (value){ this.price  = this.price - value/100 * this.price } }) //скидка
+
+  this.to_string = function()
+  {
+      return "Продукт с id: " + this.unique_number
+      + ", размер: " + this.size
+      + ", цвет: " + this.color
+      + ", цена: " + this.price //конечная стоимость
+  }
+}
+
+
+// 5.	Добавьте в описание товара новые свойства: «скидка» и «конечная стоимость»
+// (стоимость с учетом скидки). Добавьте геттер и сеттер для свойства «конечная стоимость»,
+// учитывая то, что свойства «скидка» и «конечная стоимость» взаимозависимые.
+
+
+
+
+</script>
+</html>

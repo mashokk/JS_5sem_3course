@@ -3,6 +3,7 @@
 <script>
   //Деструктурирующее присваивание. Глобальный объект. Замыкания, внутренняя работа функции.
   //Объект функции, NFE. Остаточные параметры и оператор расширения. Рекурсия, стек. Каррирование. Генераторы
+  
   //1.	Пользователь проходит анкетирование, отвечая на вопросы да/нет (модальное окно confirm).
   //Количество ответов «да» и «нет» сохраняются в объекте, который содержит также имя пользователя
   //и его рейтинг –  разница ответов «да» и «нет». После каждого ответа пользователь видит в окне
@@ -10,38 +11,179 @@
   //которая возвращает объект пользователя. Для решения задачи нельзя использовать циклы, глобальные переменные для значений и свойств объекта.
 
 
-function ask(question, ...handlers) {
-  let isYes = confirm(question);
-  for(let handler of handlers) {
-    if (handler.length == 0) {
-      if (isYes) handler();
-    } else {
-      handler(isYes);
-    }
+  function just_info(userObject) {
+    alert(userObject["имя"] + ", да: " + userObject["да"] + ", нет: "+ userObject["нет"] + ", рейтинг: " + userObject["рейтинг"]);
   }
-}
-let counterYes = 0;
-let counterNo = 0;
+  function final_info(userObject, number_question, answer, yes, no) {
+    userObject["вопрос"] = number_question;
+    userObject["ответ"] = answer;
+    userObject["да"] = yes;
+    userObject["нет"] = no;
+    userObject["рейтинг"] = yes - no;
+  }
+  
+  let info = {};
+  let counterYes = 0;
+  let counterNo = 0;
+  let name = prompt("Введите ваше имя", "");
+  info["имя"] = name;
 
-let name = prompt("Введите ваше имя", "");
-ask("Вы смотрите фильмы?", result => (result == true ? counterYes++ : counterNo++));
-alert(name + ", " + counterYes + ", " + counterNo + ", " + (counterYes-counterNo));
-ask("Вы едите попкорн при каждом просмотре фильма?", result => (result == true ? counterYes++ : counterNo++));
-alert(name + ", " + counterYes + ", " + counterNo + ", " + (counterYes-counterNo));
-ask("Есть ли у Вас список \"Что посмотреть, если скучно\"?", result => (result == true ? counterYes++ : counterNo++));
-alert(name + ", " + counterYes + ", " + counterNo + ", " + (counterYes-counterNo));
+  let q1 = confirm("Вы смотрите фильмы?");
+  if ( q1 == true ) { ++counterYes; } else { ++counterNo; }
+  final_info(info, 1, q1, counterYes, counterNo);
+  just_info(info);
+
+  let q2 = confirm("Вы едите попкорн при каждом просмотре фильма?");
+  if ( q2 == true ) { ++counterYes; } else { ++counterNo; }
+  final_info(info, 2, q2, counterYes, counterNo);
+  just_info(info);
+
+  let q3 = confirm("Есть ли у Вас список \"Что посмотреть, если скучно\"?");
+  if ( q3 == true ) { ++counterYes; } else { ++counterNo; }
+  final_info(info, 3, q3, counterYes, counterNo);
+  just_info(info);
+
+  // function ask(question, ...handlers) {
+  //   let isYes = confirm(question);
+  //   for(let handler of handlers) {
+  //     if (handler.length == 0) {
+  //       if (isYes) handler();
+  //     } else {
+  //       handler(isYes);
+  //     }
+  //   }
+  // }
+  //let counterYes = 0;
+  //let counterNo = 0;
+  // ask("Вы смотрите фильмы?", result => (result == true ? counterYes++ : counterNo++));
+  // alert(name + ", " + counterYes + ", " + counterNo + ", " + (counterYes-counterNo));
+  // ask("Вы едите попкорн при каждом просмотре фильма?", result => (result == true ? counterYes++ : counterNo++));
+  // alert(name + ", " + counterYes + ", " + counterNo + ", " + (counterYes-counterNo));
+  // ask("Есть ли у Вас список \"Что посмотреть, если скучно\"?", result => (result == true ? counterYes++ : counterNo++));
+  // alert(name + ", " + counterYes + ", " + counterNo + ", " + (counterYes-counterNo));
 
 
 
   //2.	Реализуйте каррированную функцию, которая рассчитывает объем прямоугольного
   //параллелепипеда. Выполните преобразование функции для неоднократного расчёта объема
   //прямоугольных параллелепипедов, у которых одно ребро одинаковой длины.
+  //преобраз. ф. с множеством аргументов в набор вложенных ф-ций с 1ним аргументом
+  document.write('<h2>Задание 2<br></h2>');
+  function volume(l) { //length
+    return (w, h) => { //width, height
+      return l * w * h;
+    }
+  }
+  document.write("Объем прямоугольного параллелепипеда равен " + volume(4)(5,6));
+  document.write("<br>");
+
+  const sameL = volume(7);
+  document.write("Объем прямоугольного параллелепипеда равен " + sameL(8,9));
+
+
   //3.	Пользователь совершает покупку (вводит сумму стоимости товаров). Если сумма покупки
   //превышает 200 рублей, то пользователь получает скидку 10%, если более 400 р – 20%. Реализуйте 
   //функцию discount(), которая принимает параметр «размер скидки». Параметр S – сумма покупки.
+  document.write('<h2>Задание 3<br></h2>');
+  let summa = +prompt("Введите сумму стоимости товаров", "1");
+
+  function Discount(discount) {
+    return (price) => {
+      return discount * price;
+    }
+  }
+
+  if ((summa >= 200) && (summa <= 400)) {
+    document.write("Вы получили скидку <b>10%</b><br>Скидка с покупки на " + summa + " рублей составляет: " + Discount(0.1)(summa) + " рублей.<br>Итого, с вас " + (summa - Discount(0.1)(summa)) + " рублей.");
+  }
+  else if (summa > 400) {
+    document.write("Вы получили скидку <b>20%</b><br>Скидка с покупки на " + summa + " рублей составляет: " + Discount(0.2)(summa) + " рублей.<br>Итого, с вас " + (summa - Discount(0.2)(summa)) + " рублей.");
+  }
+  else if (summa <= 0) { document.write("Поздравляю, вы сломали кассу. Сегодня ничего не покупаете."); }
+  else {
+    document.write("Спасибо за покупку! Покупка составила " + summa + " рублей.");
+  }
+
+
+  //4.	Пользователь управляет движением объекта, вводя в модальное окно
   //команды left, right, up, down. Объект совершает 10 шагов в заданном направлении (т.е. 
   //высчитываются и выводятся в консоль соответствующие координаты) и запрашивает новую команду. 
-  //Разработайте генератор, который возвращает координаты объекта, согласно заданному направлению движения. 
+  //Разработайте генератор, который возвращает координаты объекта, согласно заданному направлению движения.
+  //г-ры работают с потоками данных и работ. с перебир. объектами. //ф.-генератор
+  document.write('<h2>Задание 4<br></h2>');
+  function* moving(move, x, y) {
+    if (move == "left") {
+        yield x - 10;
+        yield y;
+    }
+    if (move == "right") {
+        yield x + 10;
+        yield y;
+    }
+    if (move == "up") {
+        yield x;
+        yield y + 10;
+    }
+    if (move == "down") {
+        yield x;
+        yield y - 10;
+    }
+}
+
+let x = 0;
+let y = 0;
+
+let choose = 0;
+
+while(choose != 5) {
+  choose = + prompt("Введите команду:"
+    + "\n1 - Вверх."
+    + "\n2 - Вниз."
+    + "\n3 - Налево."
+    + "\n4 - Направо."
+    + "\n<b>5 - Выход</b>", "");
+
+  function show() {
+    alert("Текущие координаты\nx = " + x + "\ny = " + y);
+  }
+  //next - метод г-ра, запуск. вып. кода до ближайшей инструкции yield
+    switch(choose){
+        case 1:
+          let moveUp = moving("up", x, y);
+          x = moveUp.next().value;
+          y = moveUp.next().value;
+          show();
+          break;
+
+        case 2:
+          let moveDown = moving("down", x, y);
+          x = moveDown.next().value;
+          y = moveDown.next().value;
+          show();
+          break;
+
+        case 3:
+          let moveLeft = moving("left", x, y);
+          x = moveLeft.next().value;
+          y = moveLeft.next().value;
+          show();
+          break;
+
+        case 4:
+          let moveRight = moving("right", x, y);
+          x = moveRight.next().value;
+          y = moveRight.next().value;
+          show();
+          break;
+
+        case 5:
+          document.write("Итоговые координаты: x = " + x + ", y = " + y);
+          break;
+
+        default:
+          alert("Ошибка!");
+    }
+}
 </script>
 </head>
 <body>

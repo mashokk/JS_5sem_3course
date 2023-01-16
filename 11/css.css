@@ -1,0 +1,30 @@
+/* кнопки */
+#Action_Buttons {
+    text-align: left;
+    margin: 0px 10px 10px 10px; 
+    padding: 0px 0px 20px 0px;
+}
+#Basket {
+    text-align: left;
+    margin: 0px 10px 10px 10px; 
+    padding: 0px 0px 20px 0px;
+}
+
+
+/* блоки */
+#Products_Div {
+    display: flex;
+    margin: 0px 10px 10px 10px; 
+    padding: 0px 0px 20px 0px;
+}
+#New_Products {
+    width: 280px;
+    height: auto;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    padding: 10px 10px 10px 10px;
+}
+#Image {
+    margin: 10px 0 10px 0;
+    width: 230px;
+}
